@@ -16,13 +16,13 @@
          </style>
     </head>
     <body> 
-        <h1 style="color: #8a2be2;text-align: center;">My "Hello World" Poem</h1>
+        <h1 style="color: #8a2be2;text-align: center;"><u>My "Hello World" Poem</u></h1>
         <p style="color:crimson; text-align:center;" id="main" onmousemove="onHover()"></p>
         <p style="color:white; text-align:center;" id="final">
-             I am curious and explorative <br>
+             I am <i>curious</i> and <i>explorative</i> <br>
              I wonder how difficult it is to create a browser engine<br> <br>
-             I want to learn more about programming<br>
-             I am Martin D. Thomas<br><br>
+             I want to learn more about <b>programming</b><br>
+             <strong>I am Martin D. Thomas</strong><br><br>
              
         </p>
         <script>
@@ -30,7 +30,7 @@
                 
                     document.getElementById("main").style.color="blue"
             }
-            let text = " I am curious and explorative                                          \t I wonder how difficult it is to create a browser engine                                 \tI want to learn more about programming                                 \t           I am Martin D. Thomas"                     
+            let text = " I am <i>curious</i> and <i>explorative</i>                                          \t I wonder how difficult it is to create a browser engine                                 \tI want to learn more about programming                                 \t           I am Martin D. Thomas"                     
             let currentCharPos = 1
             setInterval(() => {        
                 if(currentCharPos < text.length) {        
@@ -51,6 +51,11 @@
                 currentCharPos++
                 }
             }, 50);
+            let canvas = document.getElementById("canvas") 
+            
         </script>
+        <canvas id="canvas">
+
+        </canvas>
     </body>
 </html>
