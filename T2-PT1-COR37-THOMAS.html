@@ -16,27 +16,56 @@
     </style>
 </head>
 <body> 
-    <h1 style="color: #8a2be2;text-align: center;"><u>My "Hello World" Poem</u></h1>
-    <p style="color:crimson; text-align:center;" id="main" onmousemove="onHover()"></p>
-    <p style="color:white; text-align:center;" id="final">
+    <header>
+        <pre>
+            <p style="text-align: right; font-family:'Times New Roman', Times, serif; font-size: x-large;">Martin D. Thomas <br> January 11, 2011 </p>
+        </pre>
+        
+    </header>
+    <hr size="10" color="pink"/>
+    
+    <p style="text-align: center;font-size: xx-large;"><u>My "Hello World" Poem</u></p>
+    <p style=" text-align:center;" id="main" onmousemove="onHover()"></p>
+    <p style="text-align:center; display: none;" id="final">
         I am <i>curious</i> and <i>explorative</i> <br>
         I wonder how difficult it is to create a browser engine<br> <br>
         I want to learn more about <b>programming</b><br>
         <strong>I am Martin D. Thomas</strong><br><br>
         
     </p>
+    
     <script>
+        
         function onHover(){
             
             document.getElementById("main").style.color="blue"
         }
         let text = " I am curious and explorative                                          \t I wonder how difficult it is to create a browser engine                                 \tI want to learn more about programming                                 \t           I am Martin D. Thomas"                     
         let currentCharPos = 1
-        setInterval(() => {        
+        document.stopAnimation = false
+        document.addEventListener("mousedown", () => {document.stopAnimation = true;document.getElementById("bgMus").play()})
+        document.addEventListener("mouseup", () => {document.stopAnimation = false})
+        setInterval(() => {    
+            document.getElementById("bgMus").play()
+            if(document.stopAnimation){return}
+            function componentToHex(c) {
+                var hex = c.toString(16);
+                return hex.length == 1 ? "0" + hex : hex;
+            }
+            
+            function rgbToHex(r, g, b) {
+                return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+            }
+            //https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+            document.querySelector("body").style.backgroundColor = rgbToHex(Math.round((Date.now()/30))%200,Math.round(Date.now()/50)%200,Math.round(Date.now()/70)%200)
+            let contrastColor = rgbToHex((Math.round((Date.now()/300))+150)%255,(Math.round(Date.now()/500)+150)%255,(Math.round(Date.now()/700)+150)%255)
+            document.getElementById("main").style.color=contrastColor
+            document.querySelectorAll("p").forEach((element) => {element.style.color = contrastColor; element.style.fontWeight=1000})
+            
             if(currentCharPos < text.length) {        
                 if(text[currentCharPos] == "\t"){
                     document.getElementById("main").innerHTML = ""
-                    document.getElementById("main").style.color="red"
+                    
                     
                 }
                 document.getElementById("main").innerHTML += text[currentCharPos]
@@ -44,32 +73,19 @@
                 currentCharPos++
             }else{
                 if(currentCharPos > text.length+10){
-                    document.getElementById("final").style.color = "green"
+                    document.getElementById("final").style.display ="block"
                     document.getElementById("main").innerHTML = ""
                     document.getElementById("main").style.color = "white"
                 }
                 currentCharPos++
             }
-        }, 50);
-        let canvas = document.getElementById("canvas") 
+        }, 50); 
+       
         
     </script>
-    <canvas id= "sim" width="500" height="500">        
-    </canvas>
-    <script>
-        const cnv = document.getElementById("sim")
-        const context = cnv.getContext("2d")
-        function loop () {            
-            context.fillStyle = `rgb(
-        ${Date.now() / 6 % 255}
-        ,${(Date.now() / 10 % 255) - 50},
-        ${255 - Date.now() / 10 % 255})`
-            
-            
-            context.fillRect(Math.random()*500, Math.random*500, 20, 20)
-        }
-    
-    setInterval(loop,10)
-</script>
+    <footer>        
+        <p style="color: blue; font-family: 'Courier New', Courier, monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Martin COR2024</p>
+        <audio id="bgMus" loop="true"> <source src = "./music/674406__gregorquendel__sci-fi-soundscape-drone-pad-harmonic-006-iii-designed-atmospheres.mp3"></audio>
+    </footer>
 </body>
 </html>
