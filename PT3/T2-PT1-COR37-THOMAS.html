@@ -53,18 +53,26 @@
             function rgbToHex(r, g, b) {
                 return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
             }
-            //https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
-            document.querySelector("body").style.backgroundColor = rgbToHex(Math.round((Date.now()/30))%200,Math.round(Date.now()/50)%200,Math.round(Date.now()/70)%200)
-            let contrastColor = rgbToHex((Math.round((Date.now()/300))+150)%255,(Math.round(Date.now()/500)+150)%255,(Math.round(Date.now()/700)+150)%255)
+            //by Tim Down @ https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+            let bgColor = rgbToHex(Math.round((Date.now()/30))%200,Math.round(Date.now()/50)%200,Math.round(Date.now()/70)%200)
+            document.querySelector("body").style.backgroundColor = bgColor
+            
+            
+            function contrastingColor(hex, factorAlpha=false) {
+                let [r,g,b,a]=hex.replace(/^#?(?:(?:(..)(..)(..)(..)?)|(?:(.)(.)(.)(.)?))$/, '$1$5$5$2$6$6$3$7$7$4$8$8').match(/(..)/g).map(rgb=>parseInt('0x'+rgb));
+                return ((~~(r*299) + ~~(g*587) + ~~(b*114))/1000) >= 128 || (!!(~(128/a) + 1) && factorAlpha) ? '#000' : '#FFF';   
+            }
+            //contrastingColor by NerdyDeedsLLC @ https://gist.github.com/dcondrey/183971f17808e9277572
+
+
+            let contrastColor = contrastingColor(bgColor)
             document.getElementById("main").style.color=contrastColor
             document.querySelectorAll("h1").forEach((element) => {element.style.color = contrastColor;})
             document.querySelectorAll("h2").forEach((element) => {element.style.color = contrastColor;})
             document.querySelectorAll("p").forEach((element) => {element.style.color = contrastColor;})
             document.querySelectorAll("li").forEach((element) => {element.style.color = contrastColor;})
-            
-            if(Math.floor(Math.random()*50)==10) {clearInterval(flash);}
         }, 50); 
-
+        
         setInterval(()=>{
             document.getElementById("bgMus").play()
             if(document.stopAnimation){return}
@@ -88,16 +96,16 @@
             }
         },50)
         
-       
+        
         
     </script>
-            
-        <p style="color: blue; font-family: 'Courier New', Courier, monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Martin COR2024</p>
-        <audio id="bgMus" loop="true"> <source src = "./music/674406__gregorquendel__sci-fi-soundscape-drone-pad-harmonic-006-iii-designed-atmospheres.mp3"></audio>
-        <hr size="10" color="pink"/>
-        
-        <h1 style="text-align: center;">Bucket Lists</h1>
-        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;padding-left: 30%;">
+    
+    <p style="color: blue; font-family: 'Courier New', Courier, monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Martin COR2024</p>
+    <audio id="bgMus" loop="true"> <source src = "./music/674406__gregorquendel__sci-fi-soundscape-drone-pad-harmonic-006-iii-designed-atmospheres.mp3"></audio>
+    <hr size="10" color="pink"/>
+    
+    <h1 style="text-align: center;">Bucket Lists</h1>
+    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;padding-left: 30%;">
         <h2>My Wishes</h2>
         <ul type = "square">
             <li>
